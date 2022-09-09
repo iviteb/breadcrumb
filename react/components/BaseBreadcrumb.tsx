@@ -28,6 +28,7 @@ export interface Props {
   showOnMobile?: boolean
   homeIconSize?: number
   caretIconSize?: number
+  isInSearch?: boolean
 }
 
 const makeLink = (str: string) =>
@@ -57,6 +58,16 @@ const getCategoriesList = (categories: string[]): NavigationItem[] => {
   })
 }
 
+const addSlashC = (categories: NavigationItem[]) => {
+  categories.forEach((br: NavigationItem) => {
+    if (br.href.slice(-2) !== '/c') {
+      br.href = br.href + "/c"
+    }
+  })
+
+  return categories
+}
+
 /**
  * Breadcrumb Component.
  */
@@ -68,11 +79,12 @@ const Breadcrumb: React.FC<Props> = ({
   showOnMobile = false,
   homeIconSize = 26,
   caretIconSize = 8,
+  isInSearch = false
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { isMobile } = useDevice()
   const navigationList = useMemo(
-    () => breadcrumb ?? categoryTree ?? getCategoriesList(categories),
+    () => (!isInSearch ? (addSlashC(breadcrumb ?? []) ?? addSlashC(categoryTree ?? [])) : breadcrumb ?? categoryTree) ?? getCategoriesList(categories),
     [breadcrumb, categories, categoryTree]
   )
 
