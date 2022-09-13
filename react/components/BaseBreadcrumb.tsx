@@ -83,6 +83,12 @@ const Breadcrumb: React.FC<Props> = ({
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { isMobile } = useDevice()
+
+  /* This adds a '/c' to the URLs of category breadcrumbs. The logic is as follos:
+  If we are NOT in the search page (so in a product page), then if breadcrumb is defined, we add the '/c', else
+  if categoryTree is defined, we add the '/c' to that.
+  If we are in the search page, we use breadcrumb if defined, else categoryTree.
+  If none of these cases apply, we use getCategoriesList. */
   const navigationList = useMemo(
     () => (!isInSearch ? (addSlashC(breadcrumb ?? []) ?? addSlashC(categoryTree ?? [])) : breadcrumb ?? categoryTree) ?? getCategoriesList(categories),
     [breadcrumb, categories, categoryTree]
