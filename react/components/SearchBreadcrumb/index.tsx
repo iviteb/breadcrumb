@@ -15,7 +15,12 @@ const SearchBreadcrumb: FC<Props> = ({
   homeIconSize,
   caretIconSize,
 }) => {
+  // We do not apply our logic if we are in the search page
+  let isInSearch = false
+
   const { searchQuery } = useSearchPage()
+  isInSearch = searchQuery?.facets?.queryArgs?.map?.includes('ft')
+
   const breadcrumb: NavigationItem[] =
     searchQuery?.data?.productSearch?.breadcrumb ??
     searchQuery?.data?.facets?.breadcrumb ??
@@ -30,6 +35,7 @@ const SearchBreadcrumb: FC<Props> = ({
         categories={[]} // unused prop, its OK
         homeIconSize={homeIconSize}
         caretIconSize={caretIconSize}
+        isInSearch={isInSearch}
       />
     </>
   )
