@@ -81,7 +81,6 @@ const Breadcrumb: React.FC<Props> = ({
   caretIconSize = 8,
   isInSearch = false
 }) => {
-  console.log("🚀 ~ file: BaseBreadcrumb.tsx ~ line 84 ~ isInSearch", isInSearch, categoryTree, getCategoriesList(categories))
   const handles = useCssHandles(CSS_HANDLES)
   const { isMobile } = useDevice()
 
