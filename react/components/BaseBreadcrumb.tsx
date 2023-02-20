@@ -60,7 +60,7 @@ const getCategoriesList = (categories: string[]): NavigationItem[] => {
 
 const addSlashC = (categories: NavigationItem[]) => {
   categories.forEach((br: NavigationItem) => {
-    if (br.href.slice(-2) !== '/c') {
+    if (br.href.slice(-2) !== '/c' && !br.href.includes('?map=')) {
       br.href = br.href + "/c"
     }
   })
